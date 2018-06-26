@@ -1,0 +1,32 @@
+list instance by id, ip, name:
+nova list | awk -F'|' '/\|/{print "|"$1"|"$2"|"$3"|"$7"|"} /+-/{print}'
+########################################################################
+
+
+find floating ip address
+ openstack floating ip show ac794230-9f0e-4488-baa2-4580aa42d848 | awk -F"|" 'gensub(/^[ \t]+|[ \t]+$/,"","g",$2)=="floating_ip_address"{print gensub(/^[ \t]+|[ \t]+$/,"","g",$3);}'
+###############################################################################
+
+
+find instance id after launch
+
+ nova boot --nic net-id=9eb7888c-13a3-4684-8ac5-8769a7884f19 --flavor 1 --image 90764208-f211-447b-95f0-f7c46e3d6772 --security-group default new_instance | awk -F"|" 'gensub(/^[ \t]+|[ \t]+$/,"","g",$2)=="id"{print gensub(/^[ \t]+|[ \t]+$/,"","g",$3);}'
+##################################################################################
+
+openstack add floating ip
+
+openstack server add floating ip ede03309-2342-49af-9912-2225b75bbdaf 172.24.4.17
+###################################################################################
+
+subprocess.call(["openstack","server add floating ip","bc35b439-e587-47fb-85b3-2f3272b44b59","172.24.4.15"])
+####################################################################################
+>>> x="bc35b439-e587-47fb-85b3-2f3272b44b59"
+>>> ip=""
+KeyboardInterrupt
+>>> ip="172.24.4.15"
+>>> subprocess.call(["openstack","server add floating ip",x,ip])
+####################################################################################
+paramiko
+############################
+stdin, stdout, stderr = ssh.exec_command('echo -e {}>>new.txt'.format(humidity))
+####################################################################################
